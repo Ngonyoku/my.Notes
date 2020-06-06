@@ -30,6 +30,25 @@ public class Operation {
         return instance;
     }
 
+    public void updateNote(UUID ID, String title, String contents, String dateEdited) {
+        for (Notes notes : notesList) {
+            if (notes.getIdentifier().equals(ID)) {
+                notes.setNoteTitle(title);
+                notes.setNoteContents(contents);
+                notes.setDateCreated(dateEdited);
+                break;
+            }
+        }
+    }
+
+    public void deleteNote(UUID ID) {
+        for (Notes notes : notesList) {
+            if (notes.getIdentifier().equals(ID)) {
+                notesList.remove(notes);
+            }
+        }
+    }
+
     public Notes getNote(UUID ID) {
         for (Notes notes : notesList) {
             if (notes.getIdentifier().equals(ID)) {

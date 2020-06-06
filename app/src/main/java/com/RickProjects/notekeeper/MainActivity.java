@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.main_recyclerview);
         rvAdapter = new NotesRVAdapter(this, notesList);
 
-        toolbar.setTitle(null);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         recyclerView.setAdapter(rvAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, ViewNotes.class);
                 intent.putExtra(IDENTIFIER, uuid);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -58,6 +59,18 @@ public class MainActivity extends AppCompatActivity {
     //The method is called by the Floating Action Button.
     public void createNote(View view) {
         startActivity(new Intent(this, CreateNotes.class));
+        finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        rvAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
         finish();
     }
 }
