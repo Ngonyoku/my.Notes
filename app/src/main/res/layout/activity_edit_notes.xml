@@ -36,13 +36,37 @@
                 android:orientation="vertical"
                 android:scrollbars="vertical">
 
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    android:weightSum="2">-->
+
+                <!--                    <EditText-->
+                <!--                        android:id="@+id/et_note_title"-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_weight="1.4"-->
+                <!--                        android:hint="@string/note_title_txt"-->
+                <!--                        android:inputType="text"-->
+                <!--                        android:maxLength="60"-->
+                <!--                        android:padding="16dp"-->
+                <!--                        android:textSize="20sp" />-->
+
+                <!--                    <Spinner-->
+                <!--                        android:id="@+id/spinner_categories"-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="match_parent"-->
+                <!--                        android:layout_weight="0.6" />-->
+                <!--                </LinearLayout>-->
+
                 <EditText
                     android:id="@+id/et_note_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/note_title_txt"
                     android:inputType="text"
-                    android:maxLength="20"
+                    android:maxLength="60"
                     android:padding="16dp"
                     android:textSize="20sp" />
 

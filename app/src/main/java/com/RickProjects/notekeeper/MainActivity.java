@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.RickProjects.notekeeper.Adapters.NotesRVAdapter;
@@ -24,6 +25,7 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NotesRVAdapter rvAdapter;
+    private TextView rvNotesStatus;
     private Toolbar toolbar;
     private List<Notes> notesList;
 
@@ -38,12 +40,17 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.main_toolbar);
         recyclerView = findViewById(R.id.main_recyclerview);
+        rvNotesStatus = findViewById(R.id.tv_main_recyclerview_status);
         rvAdapter = new NotesRVAdapter(this, notesList);
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         recyclerView.setAdapter(rvAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        if (!notesList.isEmpty()) {
+            rvNotesStatus.setVisibility(View.GONE);
+        }
 
         rvAdapter.setOnClick(new NotesRVAdapter.OnClick() {
             @Override

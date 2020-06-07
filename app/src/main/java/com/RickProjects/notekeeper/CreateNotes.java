@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.RickProjects.notekeeper.LocalDBHandlers.Operation;
@@ -19,13 +21,16 @@ import com.RickProjects.notekeeper.Models.Notes;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class CreateNotes extends AppCompatActivity {
     private Toolbar toolbar;
     private EditText noteTitle, noteContents;
     private CoordinatorLayout layout;
+    private Spinner categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +41,43 @@ public class CreateNotes extends AppCompatActivity {
         noteContents = findViewById(R.id.et_note_contents);
         toolbar = findViewById(R.id.createNotes_toolbar);
         layout = findViewById(R.id.createNotes_layout);
-        toolbar.setTitle(null);
+        categories = findViewById(R.id.spinner_categories);
+
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
+
+        List<String> categoriesList = new ArrayList<>();
+        categoriesList.add("Home");
+        categoriesList.add("Personal");
+        categoriesList.add("Chores");
+        categoriesList.add("Quotes");
+        categoriesList.add("Assignments");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, categoriesList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.categories.setAdapter(adapter);
+        categories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String itemSelected = parent.getItemAtPosition(position).toString();
+                setCategorySelected(itemSelected);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private String categorySelected;
+
+    private String getCategorySelected() {
+        return categorySelected;
+    }
+
+    private void setCategorySelected(String categorySelected) {
+        this.categorySelected = categorySelected;
     }
 
     @Override
@@ -60,6 +100,7 @@ public class CreateNotes extends AppCompatActivity {
                     notes.setNoteTitle(noteTitle.getText().toString());
                     notes.setNoteContents(noteContents.getText().toString());
                     notes.setDateCreated(DateFormat.getDateInstance(DateFormat.FULL).format(Calendar.getInstance().getTime()));
+                    notes.setNoteCategory(getCategorySelected());
                     Operation.getInstance(getApplicationContext()).addNote(notes);
                     Snackbar.make(layout, "Note Added", Snackbar.LENGTH_SHORT)
                             .setAction("VIEW", new View.OnClickListener() {
@@ -72,8 +113,6 @@ public class CreateNotes extends AppCompatActivity {
                             .show();
                 }
                 erase();
-                return true;
-            case R.id.menu_categories:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

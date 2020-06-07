@@ -30,12 +30,13 @@ public class Operation {
         return instance;
     }
 
-    public void updateNote(UUID ID, String title, String contents, String dateEdited) {
+    public void updateNote(UUID ID, String title, String contents, String dateEdited/*,String category*/) {
         for (Notes notes : notesList) {
             if (notes.getIdentifier().equals(ID)) {
                 notes.setNoteTitle(title);
                 notes.setNoteContents(contents);
                 notes.setDateCreated(dateEdited);
+//                notes.setNoteCategory(category);
                 break;
             }
         }

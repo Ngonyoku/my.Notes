@@ -18,7 +18,7 @@ import com.RickProjects.notekeeper.Models.Notes;
 import java.util.UUID;
 
 public class ViewNotes extends AppCompatActivity {
-    private TextView noteTitle, noteContent, noteDateCreated;
+    private TextView noteTitle, noteContent, noteDateCreated, noteCategory;
     private Toolbar toolbar;
     public static final String IDENTIFIER = "identifier";
 
@@ -35,6 +35,7 @@ public class ViewNotes extends AppCompatActivity {
         noteContent = findViewById(R.id.tv_note_content);
         noteContent = findViewById(R.id.tv_note_content);
         noteDateCreated = findViewById(R.id.tv_note_date_created);
+        noteCategory = findViewById(R.id.tv_note_category);
         Notes notes = Operation.getInstance(getApplicationContext()).getNote(uuid);
 
         toolbar.setTitle("");
@@ -42,6 +43,7 @@ public class ViewNotes extends AppCompatActivity {
         noteTitle.setText(notes.getNoteTitle());
         noteContent.setText(notes.getNoteContents());
         noteDateCreated.setText(notes.getDateCreated());
+        noteCategory.setText(notes.getNoteCategory());
     }
 
     @Override
@@ -73,7 +75,7 @@ public class ViewNotes extends AppCompatActivity {
                         .setNegativeButton(R.string.dialog_negative_feedback, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                finish();
                             }
                         })
                         .create()

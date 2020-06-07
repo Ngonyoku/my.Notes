@@ -8,6 +8,7 @@
     <string name="note_edit">EDIT</string>
     <string name="note_delete">DELETE</string>
     <string name="note_update">UPDATE</string>
+    <string name="notes_list_status_msg">Your notes will appear hear!</string>
     <string name="dialog_positive_feedback">Yes,I\'m sure</string>
     <string name="dialog_negative_feedback">No</string>
     <string name="dialog_delete_message">Are you sure you want to Delete this note?</string>

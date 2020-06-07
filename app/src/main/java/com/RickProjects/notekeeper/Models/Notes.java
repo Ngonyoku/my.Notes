@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Notes {
     private UUID identifier;
-    private String noteTitle, dateCreated, noteContents;
+    private String noteTitle, dateCreated, noteContents, noteCategory;
 
     public Notes() {
         this.identifier = UUID.randomUUID();
@@ -32,6 +32,14 @@ public class Notes {
 
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public String getNoteCategory() {
+        return noteCategory;
+    }
+
+    public void setNoteCategory(String noteCategory) {
+        this.noteCategory = noteCategory;
     }
 
     public String getNoteContents() {
