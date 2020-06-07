@@ -1,4 +1,4 @@
-package com.RickProjects.notekeeper.Adapters;
+package com.RickProjects.myNotes.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.RickProjects.notekeeper.Models.Notes;
-import com.RickProjects.notekeeper.R;
+import com.RickProjects.myNotes.Models.Notes;
+import com.RickProjects.myNotes.R;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package com.RickProjects.notekeeper.Models;
+package com.RickProjects.myNotes.Models;
 
 import java.util.UUID;
 

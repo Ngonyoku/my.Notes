@@ -1,11 +1,11 @@
-package com.RickProjects.notekeeper.LocalDBHandlers;
+package com.RickProjects.myNotes.LocalDBHandlers;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.RickProjects.notekeeper.Models.Notes;
+import com.RickProjects.myNotes.Models.Notes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +13,14 @@ import java.util.UUID;
 
 public class Operation {
     private static Operation instance;
-    //    private List<Notes> notesList;
     private SQLiteDatabase myDatabase;
 
     private Operation(Context context) {
-//        notesList = new ArrayList<>();
         myDatabase = new MyNotesDBHelper(context).getWritableDatabase();
 
     }
 
     public List<Notes> getListOfNotes() {
-//        return notesList;
         Cursor cursor = myDatabase.query(
                 MyNotesDBHelper.TABLE_NAME,
                 null,
@@ -71,19 +68,11 @@ public class Operation {
     }
 
     public void updateNote(UUID ID, String title, String contents, String dateEdited/*,String category*/) {
-//        for (Notes notes : notesList) {
-//            if (notes.getIdentifier().equals(ID)) {
-//                notes.setNoteTitle(title);
-//                notes.setNoteContents(contents);
-//                notes.setDateCreated(dateEdited);
-////                notes.setNoteCategory(category);
-//                break;
-//            }
-//        }
         Notes notes = new Notes(ID);
         notes.setNoteTitle(title);
         notes.setNoteContents(contents);
         notes.setDateCreated(dateEdited);
+        notes.setNoteCategory(notes.getNoteCategory());
         myDatabase.update(
                 MyNotesDBHelper.TABLE_NAME,
                 getContentValues(notes),
@@ -93,12 +82,6 @@ public class Operation {
     }
 
     public void deleteNote(UUID ID) {
-//        for (Notes notes : notesList) {
-//            if (notes.getIdentifier().equals(ID)) {
-//                notesList.remove(notes);
-//            }
-//        }
-
         myDatabase.delete(
                 MyNotesDBHelper.TABLE_NAME,
                 MyNotesDBHelper.COLUMN_UUID + " = ?",
@@ -107,13 +90,6 @@ public class Operation {
     }
 
     public Notes getNote(UUID ID) {
-//        for (Notes notes : notesList) {
-//            if (notes.getIdentifier().equals(ID)) {
-//                return notes;
-//            }
-//        }
-//
-//        return null;
         Cursor cursor = myDatabase.query(
                 MyNotesDBHelper.TABLE_NAME,
                 null,
@@ -138,7 +114,6 @@ public class Operation {
     }
 
     public void addNote(Notes notes) {
-//        notesList.add(notes);
         myDatabase.insert(
                 MyNotesDBHelper.TABLE_NAME,
                 null,

@@ -1,2 +1,2 @@
-rootProject.name='Note Keeper'
+rootProject.name='myNotes'
 include ':app'

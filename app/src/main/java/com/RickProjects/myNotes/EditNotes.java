@@ -1,4 +1,4 @@
-package com.RickProjects.notekeeper;
+package com.RickProjects.myNotes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -10,19 +10,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.RickProjects.notekeeper.LocalDBHandlers.Operation;
-import com.RickProjects.notekeeper.Models.Notes;
+import com.RickProjects.myNotes.LocalDBHandlers.Operation;
+import com.RickProjects.myNotes.Models.Notes;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.UUID;
 
 public class EditNotes extends AppCompatActivity {
@@ -99,6 +94,9 @@ public class EditNotes extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_update:
                 //Update Note Details.
+                if (noteTitle.getText().toString().trim().equals("") && !noteContents.getText().toString().trim().equals("")) {
+                    noteTitle.setText("--No Title--");
+                }
                 Operation.getInstance(getApplicationContext()).updateNote(
                         uuid,
                         noteTitle.getText().toString(), //Updated Title
@@ -120,8 +118,7 @@ public class EditNotes extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 //Delete Note
                                 Operation.getInstance(getApplicationContext()).deleteNote(uuid);
-                                startActivity(new Intent(EditNotes.this,
-                                        ViewNotes.class).putExtra(IDENTIFIER, uuid));
+                                startActivity(new Intent(EditNotes.this, MainActivity.class));
                                 finish();
                             }
                         })

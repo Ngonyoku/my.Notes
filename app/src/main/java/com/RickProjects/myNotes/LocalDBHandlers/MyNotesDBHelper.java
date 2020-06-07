@@ -1,10 +1,8 @@
-package com.RickProjects.notekeeper.LocalDBHandlers;
+package com.RickProjects.myNotes.LocalDBHandlers;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import androidx.annotation.Nullable;
 
 public class MyNotesDBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myNotes.db"; //Database Name

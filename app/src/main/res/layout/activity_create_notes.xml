@@ -17,7 +17,7 @@
             android:id="@+id/createNotes_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout

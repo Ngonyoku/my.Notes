@@ -1,4 +1,4 @@
-package com.RickProjects.notekeeper;
+package com.RickProjects.myNotes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -12,8 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.RickProjects.notekeeper.LocalDBHandlers.Operation;
-import com.RickProjects.notekeeper.Models.Notes;
+import com.RickProjects.myNotes.LocalDBHandlers.Operation;
+import com.RickProjects.myNotes.Models.Notes;
 
 import java.util.UUID;
 

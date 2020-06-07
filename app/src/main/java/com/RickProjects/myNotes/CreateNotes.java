@@ -1,4 +1,4 @@
-package com.RickProjects.notekeeper;
+package com.RickProjects.myNotes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.RickProjects.notekeeper.LocalDBHandlers.Operation;
-import com.RickProjects.notekeeper.Models.Notes;
+import com.RickProjects.myNotes.LocalDBHandlers.Operation;
+import com.RickProjects.myNotes.Models.Notes;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DateFormat;
@@ -43,7 +42,7 @@ public class CreateNotes extends AppCompatActivity {
         layout = findViewById(R.id.createNotes_layout);
         categories = findViewById(R.id.spinner_categories);
 
-        toolbar.setTitle("");
+        toolbar.setTitle("Create Note");
         setSupportActionBar(toolbar);
 
         List<String> categoriesList = new ArrayList<>();

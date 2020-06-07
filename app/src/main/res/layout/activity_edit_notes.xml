@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhiteDarkened"
-    tools:context=".CreateNotes">
+    tools:context=".EditNotes">
 
     <LinearLayout
         android:layout_width="match_parent"

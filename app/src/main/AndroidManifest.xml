@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.RickProjects.notekeeper">
+    package="com.RickProjects.myNotes">
 
     <application
         android:allowBackup="true"
@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditNotes"></activity>
-        <activity android:name=".ViewNotes" />
-        <activity android:name=".CreateNotes" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.RickProjects.myNotes.EditNotes" />
+        <activity android:name="com.RickProjects.myNotes.ViewNotes" />
+        <activity android:name="com.RickProjects.myNotes.CreateNotes" />
+        <activity android:name="com.RickProjects.myNotes.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

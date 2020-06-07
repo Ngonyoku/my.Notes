@@ -1,4 +1,4 @@
-package com.RickProjects.notekeeper;
+package com.RickProjects.myNotes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,16 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.RickProjects.notekeeper.Adapters.NotesRVAdapter;
-import com.RickProjects.notekeeper.LocalDBHandlers.Operation;
-import com.RickProjects.notekeeper.Models.Notes;
-import com.google.android.material.snackbar.Snackbar;
+import com.RickProjects.myNotes.Adapters.NotesRVAdapter;
+import com.RickProjects.myNotes.LocalDBHandlers.Operation;
+import com.RickProjects.myNotes.Models.Notes;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         rvNotesStatus = findViewById(R.id.tv_main_recyclerview_status);
         rvAdapter = new NotesRVAdapter(this, notesList);
 
-        toolbar.setTitle("");
+        toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
         recyclerView.setAdapter(rvAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
