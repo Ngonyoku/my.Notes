@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">myNotes</string>
+    <string name="note_title">Note Title</string>
+    <string name="note_description">Note Description</string>
+    <string name="date_created">Date Created</string>
 
 </resources>
