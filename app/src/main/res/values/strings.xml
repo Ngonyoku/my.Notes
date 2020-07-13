@@ -3,5 +3,7 @@
     <string name="note_title">Note Title</string>
     <string name="note_description">Note Description</string>
     <string name="date_created">Date Created</string>
+    <string name="save">SAVE</string>
+    <string name="grid_layout">Grid Layout</string>
 
 </resources>
