@@ -7,7 +7,7 @@ import android.os.PersistableBundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class NoteListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
