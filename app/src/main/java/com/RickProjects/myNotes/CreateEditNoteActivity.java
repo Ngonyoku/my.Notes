@@ -17,13 +17,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-public class CreateNoteActivity extends AppCompatActivity {
+public class CreateEditNoteActivity extends AppCompatActivity {
     public static final String EXTRA_TITLE = "com.RickProjects.myNotes.EXTRA_TITLE";
+    public static final String EXTRA_ID = "com.RickProjects.myNotes.EXTRA_ID";
     public static final String EXTRA_DESCRIPTION = "com.RickProjects.myNotes.EXTRA_DESCRIPTION";
     public static final String EXTRA_DATE_CREATED = "com.RickProjects.myNotes.EXTRA_DATE_CREATED";
 
     private TextInputEditText editTextTitle, editTextDescription;
-    private CoordinatorLayout mLayout;
+//    private CoordinatorLayout mLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,18 @@ public class CreateNoteActivity extends AppCompatActivity {
 
         editTextTitle = findViewById(R.id.editText_title);
         editTextDescription = findViewById(R.id.editText_description);
-        mLayout = findViewById(R.id.layout_createNotes);
+//        mLayout = findViewById(R.id.layout_createNotes);
+
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_ID)) {
+            setTitle(getString(R.string.edit_note));
+            editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
+            editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
+        } else {
+            setTitle(getString(R.string.create_note));
+        }
     }
 
     @Override
@@ -50,7 +62,6 @@ public class CreateNoteActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
     private void saveNote() {
@@ -59,17 +70,23 @@ public class CreateNoteActivity extends AppCompatActivity {
         String date_created = DateFormat.getDateInstance(DateFormat.FULL).format(Calendar.getInstance().getTime());
 
         if (title.trim().isEmpty() || description.trim().isEmpty()) {
-            Toast.makeText(this, "Empty Note!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "CANNOT SAVE EMPTY NOTE!", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            Intent data = new Intent();
+            data.putExtra(EXTRA_TITLE, title);
+            data.putExtra(EXTRA_DESCRIPTION, description);
+            data.putExtra(EXTRA_DATE_CREATED, date_created);
+
+            int id = getIntent().getIntExtra(EXTRA_ID, -1);
+            if (id != -1) {
+                data.putExtra(EXTRA_ID, id);
+            }
+            setResult(RESULT_OK, data);
+            Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show();
+//        erase();
+            finish();
         }
-
-        Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE, title);
-        data.putExtra(EXTRA_DESCRIPTION, description);
-        data.putExtra(EXTRA_DATE_CREATED, date_created);
-        setResult(RESULT_OK, data);
-
-        Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show();
-        erase();
     }
 
     private void erase() {

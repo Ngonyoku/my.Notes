@@ -20,20 +20,23 @@ public abstract class NoteDatabase extends RoomDatabase {
 
     public static synchronized NoteDatabase getInstance(Context context) {
         if (instance == null) {
-            instance = Room.databaseBuilder(
-                    context.getApplicationContext(),
-                    NoteDatabase.class,
-                    "Note_database"
-            ).addCallback(sCallback).fallbackToDestructiveMigration().build();
+            instance = Room
+                    .databaseBuilder(
+                            context.getApplicationContext(),
+                            NoteDatabase.class,
+                            "Note_database")
+                    .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
+                    .build()
+            ;
         }
         return instance;
     }
 
-    private static RoomDatabase.Callback sCallback = new RoomDatabase.Callback() {
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-
             new PopulateDBTask(instance).execute();
         }
     };
@@ -50,7 +53,8 @@ public abstract class NoteDatabase extends RoomDatabase {
             mDAO.insert(new Note(
                             "Note Title",
                             "Description of the Note",
-                            DateFormat.getDateInstance(DateFormat.FULL).format(Calendar.getInstance().getTime())
+                            DateFormat.getDateInstance(DateFormat.FULL)
+                                    .format(Calendar.getInstance().getTime())
                     )
             );
             return null;

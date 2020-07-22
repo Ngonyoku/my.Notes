@@ -11,8 +11,18 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class NoteListAdapter extends ListAdapter<Note, NoteListAdapter.NoteListViewHolder> {
+    private OnClickListener mListener;
+
+    public interface OnClickListener {
+        void onClick(Note note);
+    }
+
     protected NoteListAdapter() {
         super(DIFF_CALL_BACK);
+    }
+
+    public void setOnItemClick(OnClickListener listener) {
+        mListener = listener;
     }
 
     private static final DiffUtil.ItemCallback<Note> DIFF_CALL_BACK = new DiffUtil.ItemCallback<Note>() {
@@ -28,7 +38,6 @@ public class NoteListAdapter extends ListAdapter<Note, NoteListAdapter.NoteListV
                     && oldItem.getTitle().equals(newItem.getTitle());
         }
     };
-
 
     @NonNull
     @Override
@@ -60,6 +69,13 @@ public class NoteListAdapter extends ListAdapter<Note, NoteListAdapter.NoteListV
             textViewTitle = itemView.findViewById(R.id.textView_noteTitle);
             textViewDescription = itemView.findViewById(R.id.textView_description);
             textViewDate = itemView.findViewById(R.id.textView_date);
+
+            itemView.setOnClickListener(v -> {
+                int position = getLayoutPosition();
+                if (position != RecyclerView.NO_POSITION && mListener != null) {
+                    mListener.onClick(getItem(position));
+                }
+            });
         }
     }
 }
