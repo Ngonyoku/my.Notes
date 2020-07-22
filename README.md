@@ -1,5 +1,6 @@
 # my.Notes
 A simple Note Keeping App for Android smart Phones
+Programming Language used is Java.
 
 ![Screenshot_20200722-155214](https://user-images.githubusercontent.com/47557555/88182862-681aa400-cc39-11ea-8453-317dd10357ca.png)
 ![Screenshot_20200722-155338](https://user-images.githubusercontent.com/47557555/88183151-c34c9680-cc39-11ea-9ffc-4c70fd696c35.png)
