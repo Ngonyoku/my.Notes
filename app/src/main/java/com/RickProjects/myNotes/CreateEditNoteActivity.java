@@ -84,7 +84,6 @@ public class CreateEditNoteActivity extends AppCompatActivity {
             }
             setResult(RESULT_OK, data);
             Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show();
-//        erase();
             finish();
         }
     }

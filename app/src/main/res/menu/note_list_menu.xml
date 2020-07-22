@@ -7,7 +7,11 @@
         android:title="@string/grid_layout"
         android:visible="false" />
     <item
+        android:id="@+id/menu_deleteAll"
+        android:title="@string/delete_all"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu_exitApp"
-        android:title="Exit"
+        android:title="@string/exit"
         app:showAsAction="never" />
 </menu>

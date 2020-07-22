@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +18,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -64,7 +68,7 @@ public class NoteListActivity extends AppCompatActivity {
                                 mNoteViewModel.delete(adapter.getNoteAt(viewHolder.getLayoutPosition()));
                             }
                         })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Toast.makeText(NoteListActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
@@ -75,26 +79,27 @@ public class NoteListActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
-        adapter.setOnItemClick(new NoteListAdapter.OnClickListener() {
-            @Override
-            public void onClick(Note note) {
-                Intent intent = new Intent(NoteListActivity.this, CreateEditNoteActivity.class);
-                intent.putExtra(CreateEditNoteActivity.EXTRA_ID, note.getId());
-                intent.putExtra(CreateEditNoteActivity.EXTRA_TITLE, note.getTitle());
-                intent.putExtra(CreateEditNoteActivity.EXTRA_DESCRIPTION, note.getDescription());
-                intent.putExtra(CreateEditNoteActivity.EXTRA_DATE_CREATED, note.getDateCreated());
+        adapter.setOnItemClick(
+                note -> {
+                    Intent intent = new Intent(NoteListActivity.this, CreateEditNoteActivity.class);
+                    intent.putExtra(CreateEditNoteActivity.EXTRA_ID, note.getId());
+                    intent.putExtra(CreateEditNoteActivity.EXTRA_TITLE, note.getTitle());
+                    intent.putExtra(CreateEditNoteActivity.EXTRA_DESCRIPTION, note.getDescription());
+                    intent.putExtra(CreateEditNoteActivity.EXTRA_DATE_CREATED, note.getDateCreated());
 
-                startActivityForResult(intent, EDIT_NOTE_REQUEST);
-            }
-        });
-        findViewById(R.id.fab_addNote).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(
-                        new Intent(NoteListActivity.this, CreateEditNoteActivity.class),
-                        CREATE_NOTE_REQUEST);
-            }
-        });
+                    startActivityForResult(intent, EDIT_NOTE_REQUEST);
+                }
+        );
+
+        findViewById(R.id.fab_addNote).
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivityForResult(
+                                new Intent(NoteListActivity.this, CreateEditNoteActivity.class),
+                                CREATE_NOTE_REQUEST);
+                    }
+                });
     }
 
     @Override
@@ -121,9 +126,55 @@ public class NoteListActivity extends AppCompatActivity {
             Note note = new Note(title, description, date);
             note.setId(id);
             mNoteViewModel.update(note);
-            Toast.makeText(this, "Note Updated", Toast.LENGTH_SHORT).show();
+            messageFeedback("Note Updated");
         } else {
             Toast.makeText(this, "Not not Saved", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.note_list_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_deleteAll:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.delete_all)
+                        .setMessage("Are you sure you want to Delete All of your Notes")
+                        .setPositiveButton(R.string.am_sure, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mNoteViewModel.deleteAll();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .show();
+
+                return true;
+            case R.id.menu_exitApp:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void messageFeedback(String msg) {
+        Snackbar.make(findViewById(R.id.layout_note_list), msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void messageFeedback(String msg, int len) {
+        if (len == 1) messageFeedback(msg);
+        else Snackbar.make(findViewById(R.id.layout_note_list), msg, Snackbar.LENGTH_LONG).show();
+
     }
 }
