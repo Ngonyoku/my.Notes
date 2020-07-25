@@ -40,10 +40,10 @@ public class NoteListActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        /*Load the List of Notes from DB to the RecyclerView*/
         mNoteViewModel.getNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(List<Note> notes) {
@@ -51,6 +51,7 @@ public class NoteListActivity extends AppCompatActivity {
             }
         });
 
+        /*Swipe to Delete*/
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -77,8 +78,10 @@ public class NoteListActivity extends AppCompatActivity {
                         })
                         .show();
             }
-        }).attachToRecyclerView(recyclerView);
+        })
+                .attachToRecyclerView(recyclerView);
 
+        /*When Note is Clicked*/
         adapter.setOnItemClick(
                 note -> {
                     Intent intent = new Intent(NoteListActivity.this, CreateEditNoteActivity.class);
@@ -91,14 +94,13 @@ public class NoteListActivity extends AppCompatActivity {
                 }
         );
 
+        /*When fab is Clicked*/
         findViewById(R.id.fab_addNote).
-                setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivityForResult(
-                                new Intent(NoteListActivity.this, CreateEditNoteActivity.class),
-                                CREATE_NOTE_REQUEST);
-                    }
+                setOnClickListener(v -> {
+                    startActivityForResult(
+                            new Intent(NoteListActivity.this, CreateEditNoteActivity.class),
+                            CREATE_NOTE_REQUEST);
+
                 });
     }
 

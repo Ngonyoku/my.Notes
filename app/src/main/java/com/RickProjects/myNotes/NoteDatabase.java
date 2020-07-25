@@ -12,11 +12,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-@Database(entities = {Note.class}, version = 1)
+@Database(entities = {Note.class, Category.class}, version = 2)
 public abstract class NoteDatabase extends RoomDatabase {
+    public static final String DATABASE_NAME = "Note_database";
     private static NoteDatabase instance;
 
     public abstract NoteDAO noteDAO();
+
+    public abstract CategoryDAO categoryDAO();
 
     public static synchronized NoteDatabase getInstance(Context context) {
         if (instance == null) {
@@ -24,7 +27,7 @@ public abstract class NoteDatabase extends RoomDatabase {
                     .databaseBuilder(
                             context.getApplicationContext(),
                             NoteDatabase.class,
-                            "Note_database")
+                            DATABASE_NAME)
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build()
@@ -42,21 +45,31 @@ public abstract class NoteDatabase extends RoomDatabase {
     };
 
     private static class PopulateDBTask extends AsyncTask<Note, Void, Void> {
-        private NoteDAO mDAO;
+        private NoteDAO mNoteDAO;
+        private CategoryDAO mCategoryDAO;
 
         public PopulateDBTask(NoteDatabase database) {
-            mDAO = database.noteDAO();
+            mNoteDAO = database.noteDAO();
+            mCategoryDAO = database.categoryDAO();
         }
 
         @Override
         protected Void doInBackground(Note... notes) {
-            mDAO.insert(new Note(
-                            "Note Title",
-                            "Description of the Note",
-                            DateFormat.getDateInstance(DateFormat.FULL)
-                                    .format(Calendar.getInstance().getTime())
-                    )
+            Category categoryOne = new Category("One");
+            Category categoryTwo = new Category("Two");
+
+            Note noteOne = new Note(
+                    "Note Title",
+                    "Description of the Note",
+                    DateFormat.getDateInstance(DateFormat.FULL)
+                            .format(Calendar.getInstance().getTime())
             );
+
+            noteOne.setCategoryId(categoryOne.getCategoryId());
+
+            mCategoryDAO.insert(categoryOne);
+            mCategoryDAO.insert(categoryTwo);
+            mNoteDAO.insert(noteOne);
             return null;
         }
     }
