@@ -82,7 +82,7 @@ public class NoteListActivity extends AppCompatActivity {
         adapter.setOnItemClick(
                 note -> {
                     Intent intent = new Intent(NoteListActivity.this, CreateEditNoteActivity.class);
-                    intent.putExtra(CreateEditNoteActivity.EXTRA_ID, note.getId());
+                    intent.putExtra(CreateEditNoteActivity.EXTRA_ID, note.getNoteId());
                     intent.putExtra(CreateEditNoteActivity.EXTRA_TITLE, note.getTitle());
                     intent.putExtra(CreateEditNoteActivity.EXTRA_DESCRIPTION, note.getDescription());
                     intent.putExtra(CreateEditNoteActivity.EXTRA_DATE_CREATED, note.getDateCreated());
@@ -124,7 +124,7 @@ public class NoteListActivity extends AppCompatActivity {
             String date = data.getStringExtra(CreateEditNoteActivity.EXTRA_DATE_CREATED);
 
             Note note = new Note(title, description, date);
-            note.setId(id);
+            note.setNoteId(id);
             mNoteViewModel.update(note);
             messageFeedback("Note Updated");
         } else {

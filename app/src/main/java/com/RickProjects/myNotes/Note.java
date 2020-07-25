@@ -9,7 +9,11 @@ import androidx.room.PrimaryKey;
 public class Note {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    @ColumnInfo(name = "note_id")
+    private int noteId;
+
+    @ColumnInfo(name = "note_category_id")
+    private int categoryId;
 
     @NonNull
     @ColumnInfo(name = "note_title")
@@ -28,6 +32,14 @@ public class Note {
         this.dateCreated = dateCreated;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -40,11 +52,11 @@ public class Note {
         return dateCreated;
     }
 
-    public int getId() {
-        return id;
+    public int getNoteId() {
+        return noteId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNoteId(int noteId) {
+        this.noteId = noteId;
     }
 }
