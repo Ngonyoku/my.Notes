@@ -11,6 +11,15 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CategoryAdapter extends ListAdapter<Category, CategoryAdapter.CategoryViewHolder> {
+    private OnClickListener mListener;
+
+    public interface OnClickListener {
+        void onClick(Category category);
+    }
+
+    public void setOnItemClicked(OnClickListener listener) {
+        this.mListener = listener;
+    }
 
     public CategoryAdapter() {
         super(
@@ -55,6 +64,16 @@ public class CategoryAdapter extends ListAdapter<Category, CategoryAdapter.Categ
             super(itemView);
 
             textViewCategoryName = itemView.findViewById(R.id.textview_category_name);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getLayoutPosition();
+                    if (position != RecyclerView.NO_POSITION && mListener != null) {
+                        mListener.onClick(getItem(position));
+                    }
+                }
+            });
         }
     }
 }

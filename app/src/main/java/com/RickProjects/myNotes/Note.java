@@ -3,9 +3,19 @@ package com.RickProjects.myNotes;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Note_table")
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(
+        tableName = "Note_table",
+        foreignKeys = @ForeignKey(
+                entity = Category.class,
+                parentColumns = "category_id",
+                childColumns = "note_category_id"
+        )
+)
 public class Note {
 
     @PrimaryKey(autoGenerate = true)
@@ -15,11 +25,9 @@ public class Note {
     @ColumnInfo(name = "note_category_id")
     private int categoryId;
 
-    @NonNull
     @ColumnInfo(name = "note_title")
     private String title;
 
-    @NonNull
     @ColumnInfo(name = "note_description")
     private String description;
 

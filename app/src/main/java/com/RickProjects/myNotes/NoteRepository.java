@@ -14,7 +14,7 @@ public class NoteRepository {
     public NoteRepository(Application application) {
         NoteDatabase database = NoteDatabase.getInstance(application);
         mDAO = database.noteDAO();
-        mNotes = mDAO.getNotes();
+        mNotes = mDAO.getAllNotes();
     }
 
     public void insert(Note note) {
@@ -35,6 +35,10 @@ public class NoteRepository {
 
     public LiveData<List<Note>> getNotes() {
         return mNotes;
+    }
+
+    public LiveData<List<Note>> getNotesForCategory(int categoryId) {
+        return mDAO.getNotesForCategory(categoryId);
     }
 
     private static class InsertTask extends AsyncTask<Note, Void, Void> {

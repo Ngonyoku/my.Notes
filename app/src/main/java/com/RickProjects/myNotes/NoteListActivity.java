@@ -43,6 +43,8 @@ public class NoteListActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        int categoryId = getIntent().getIntExtra(CategoryListActivity.CATEGORY_ID, -1);
+
         /*Load the List of Notes from DB to the RecyclerView*/
         mNoteViewModel.getNotes().observe(this, new Observer<List<Note>>() {
             @Override
