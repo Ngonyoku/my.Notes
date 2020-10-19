@@ -1,4 +1,4 @@
-package com.RickProjects.myNotes;
+package com.RickProjects.myNotes.Models;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.RickProjects.myNotes.Adapters.NoteListAdapter;
+import com.RickProjects.myNotes.Models.Note;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -134,7 +136,7 @@ public class NoteListActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.note_list_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_note_list, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

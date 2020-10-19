@@ -1,4 +1,4 @@
-package com.RickProjects.myNotes;
+package com.RickProjects.myNotes.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.RickProjects.myNotes.Models.Note;
+import com.RickProjects.myNotes.R;
+
 public class NoteListAdapter extends ListAdapter<Note, NoteListAdapter.NoteListViewHolder> {
     private OnClickListener mListener;
 
@@ -17,7 +20,7 @@ public class NoteListAdapter extends ListAdapter<Note, NoteListAdapter.NoteListV
         void onClick(Note note);
     }
 
-    protected NoteListAdapter() {
+    public NoteListAdapter() {
         super(DIFF_CALL_BACK);
     }
 

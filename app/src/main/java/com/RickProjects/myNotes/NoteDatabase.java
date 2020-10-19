@@ -9,6 +9,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.RickProjects.myNotes.Models.Note;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 

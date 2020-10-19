@@ -2,16 +2,13 @@ package com.RickProjects.myNotes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.DateFormat;
@@ -49,18 +46,40 @@ public class CreateEditNoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.create_notes_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_create_edit_notes, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_save:
+            case R.id.action_save:
                 saveNote();
+                return true;
+            case R.id.action_share:
+                shareNote();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void shareNote() {
+        String title = editTextTitle.getText().toString();
+        String description = editTextDescription.getText().toString();
+
+        if (!title.trim().isEmpty()) {
+            if (!description.trim().isEmpty()) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, title);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, title + "\n\n" + description);
+                shareIntent.setType("text/plain"); //Will Only Open email clients.
+                startActivity(Intent.createChooser(shareIntent, "Share"));
+            } else {
+                Toast.makeText(this, "Note Description is required", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Note Title is required!", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -8,6 +8,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.RickProjects.myNotes.Models.Note;
+
 import java.util.List;
 
 @Dao
